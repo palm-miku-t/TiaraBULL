@@ -46,6 +46,7 @@ elif machine == "ニューキングハナハナ":
         3: {"big": 281, "reg": 442, "machine": 0.01},
         4: {"big": 268, "reg": 406, "machine": 0.04},
         5: {"big": 253, "reg": 372, "machine": 0.08},
+        
     }
     BIG_COEF = 312
     REG_COEF = 130
@@ -99,16 +100,23 @@ if st.button("計算する"):
 
             p = settings[s]
 
+            # 理論ボーナス回数
             a = games / p["big"]
             b = games / p["reg"]
+
+            # 機械割差枚
             c = games * 3 * p["machine"]
 
+            # ボーナス差分
             d = (big - a) * BIG_COEF
             e = (reg - b) * REG_COEF
 
+            # ★ 正しい定義
             actual_diff = e + d
-            theoretical_diff = actual_diff - c
+            
             estimated_diff = diff - e - d
+            theoretical_diff = estimated_diff - c
+            
 
             scores.append(abs(theoretical_diff))
 
